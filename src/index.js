@@ -1,13 +1,20 @@
 import connectDB from './db/index.js';
 import dotenv from 'dotenv';
 
-// Load environment variables from the project root .env file.
-// When running the app from within the Project folder, dotenv will automatically
-// load `Project/.env` when called without a `path` option.
-const dotenvResult = dotenv.config();
+dotenv.config({
+  path: './.env'
+});
 
 
-connectDB();
+connectDB()
+.then(()=>{
+  app.listen(process.env.PORT || 8000 , ()=>{
+    console.log(`server is running at port : ${process.env.PORT}`);
+  })
+})
+.catch((err)=>{
+  console.error('Error connecting to MongoDB:', err);
+})
 
 
 
